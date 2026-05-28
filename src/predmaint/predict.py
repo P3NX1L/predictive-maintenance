@@ -4,7 +4,6 @@ from __future__ import annotations
 import pickle
 from pathlib import Path
 
-import numpy as np
 import pandas as pd
 
 from .features import add_features
