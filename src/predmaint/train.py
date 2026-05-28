@@ -141,12 +141,13 @@ def train_all(
     with open(artifacts / "model.pkl", "wb") as fh:
         pickle.dump({"model": best_model, "feature_columns": cols, "name": best_name}, fh)
     metrics.to_csv(artifacts / "metrics.csv", index=False)
+    metadata = {
+        "best_model": best_name,
+        "n_features": len(cols),
+        "n_machines_test": int(test_df["machine_id"].nunique()),
+    }
     with open(artifacts / "metadata.json", "w") as fh:
-        json.dump(
-            {"best_model": best_name, "n_features": len(cols), "n_machines_test": int(test_df["machine_id"].nunique())},
-            fh,
-            indent=2,
-        )
+        json.dump(metadata, fh, indent=2)
 
     return metrics
 
